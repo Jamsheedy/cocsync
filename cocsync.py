@@ -22,14 +22,7 @@ async def on_clan_member_trophies_change(old_trophies, new_trophies, player):
     print( get_time() + ' - {0.name} ({0.tag}) went from {1} to {2} trophies.'.format(player, old_trophies, new_trophies))
 
 
-# events to handle
-client.add_events(on_clan_member_donation)
-client.add_events(on_clan_member_join)
-client.add_events(on_clan_member_leave)
-client.add_events(on_clan_member_trophies_change)
-
 print( get_time() + " - Start:")
-
 client.add_clan_update(CLAN_TAG, retry_interval=30)  # check every 30 seconds
 client.run_forever()
 
