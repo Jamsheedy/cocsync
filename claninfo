@@ -11,12 +11,13 @@ headers={
 
 def get_user(tag):
     #return user's profile info
-    response=requests.get('https://api.clashofclans.com/v1/players/%'+tag, headers=headers)
+    response=requests.get('https://api.clashofclans.com/v1/players/%23'+tag, headers=headers)
     user_json= response.json()
     print("_________________________________________")
-    print("name= "+str(user_json['name']))
-    print("Townhall LVL= " +str(user_json['townHallLevel']))
-    print("Trophies= "+str(user_json['trophies']))
+    #print("name= ",str(user_json['name']))
+    # print("Townhall LVL= " ,str(user_json['townHallLevel']))
+    # print("Trophies= ",str(user_json['trophies']))
+    print(user_json)
     print("_________________________________________")
     print("\n")
 
@@ -27,12 +28,15 @@ def show_clan():
     clan_json = response.json()
     #print(clan_json)
     print("name= "+str(clan_json['name']))
-   # print(clan_json['memberList'])
+    print(clan_json['memberList'])
     memberList=clan_json['memberList']
     for member in memberList:
         print("_________________________________________")
         print("name= ", member['name'])
-        print("Tag= ",member['tag'])
+        print("Role in clan = clan",member['role'] )
+        tagstr=str(member['tag'])
+        tagstr=tagstr.replace("#","")
+        print("Player tag = ", tagstr)
         print("Level =", member['expLevel'])
         print("Current Trophies =", member['trophies'])
         print("TOTAL donations (in AND out)= ", str(member['donations']+member['donationsReceived']))
@@ -41,3 +45,5 @@ def show_clan():
 
 
 show_clan()
+tag=input("Enter the user's tag you want to search for: ")
+get_user(tag)
