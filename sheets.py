@@ -17,6 +17,9 @@ def reset_trophies():
     data.updateColumn(3, trophies)      # update sheet with changed trophies
 
 def update_members(member_list):
+
+    reset_trophies()        # set all trophies to zero
+
     player_column = data.getColumn('A')     # sheet column of player tags
     count = 0
     for member in member_list:

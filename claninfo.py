@@ -38,14 +38,6 @@ def show_clan():
         print("_________________________________________")
 
 def update_sheet():
-
-    response = requests.get('https://api.clashofclans.com/v1/clans/' + CLAN_TAG, headers=headers)
-    clan = response.json()
-
-    reset_trophies()        # set all trophies to zero
-
-    print(get_time() + ' - Trophies Reset.')
-
     clan = requests.get('https://api.clashofclans.com/v1/clans/' + CLAN_TAG, headers=headers).json()
 
     member_list = clan['memberList']
@@ -56,7 +48,7 @@ def update_sheet():
     current_war = requests.get('https://api.clashofclans.com/v1/clans/' + CLAN_TAG + '/currentwar', headers=headers).json()
     update_wars(current_war)
 
-    print(get_time() + ' - Wars Updated.')
+    print(get_time() + ' - War Updated.')
 
 
 update_sheet()
