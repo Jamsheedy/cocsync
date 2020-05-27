@@ -1,5 +1,5 @@
 import requests
-from sheets import update_members, reset_trophies
+from sheets import update_members, reset_trophies, update_wars
 from funcs import get_time
 import time
 
@@ -39,28 +39,26 @@ def show_clan():
 
 def update_sheet():
 
-    # response = requests.get('https://api.clashofclans.com/v1/clans/' + CLAN_TAG, headers=headers)
-    # clan = response.json()
-
-    print(get_time() + ' - Update Sheet')
-    print(get_time() + ' - Pull clan data')
-
-    clan = requests.get('https://api.clashofclans.com/v1/clans/' + CLAN_TAG, headers=headers).json()
-
-    print(get_time() + ' - Clan data received.')
-    print(get_time() + ' - Resetting Trophies')
+    response = requests.get('https://api.clashofclans.com/v1/clans/' + CLAN_TAG, headers=headers)
+    clan = response.json()
 
     reset_trophies()        # set all trophies to zero
 
-    print(get_time() + ' - Trophies reset')
+    print(get_time() + ' - Trophies Reset.')
 
-    print(get_time() + ' - Pull member_list data')
+    clan = requests.get('https://api.clashofclans.com/v1/clans/' + CLAN_TAG, headers=headers).json()
+
     member_list = clan['memberList']
-
-    print(get_time() + ' - MemberList pull received.')
-
     update_members(member_list)
 
+    print(get_time() + ' - Members Updated.')
+
+    current_war = requests.get('https://api.clashofclans.com/v1/clans/' + CLAN_TAG + '/currentwar', headers=headers).json()
+    update_wars(current_war)
+
+    print(get_time() + ' - Wars Updated.')
 
 
 update_sheet()
+
+print(get_time() + ' - Program finish.')
